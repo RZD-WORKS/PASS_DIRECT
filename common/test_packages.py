@@ -3,19 +3,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtCore import Qt, QTimer
 
-class ImageView(QWidget):
-   def __init__(self, parent = None):
-      super().__init__(parent)
-
-      self.setWindowTitle("Картинка")
-      self.setGeometry(100, 100, 800, 600)
-
-      label = QLabel(self)
-      pixmap = QPixmap('123.jpeg')
-
-      label.setPixmap(pixmap)
-
-
 class MyWindow(QMainWindow):
    def __init__(self, parent = None):
       super().__init__(parent)
@@ -23,7 +10,7 @@ class MyWindow(QMainWindow):
       self.setupUi()
    
    def setupUi(self):
-      self.setWindowTitle("NAVBANK")
+      self.setWindowTitle("Хранитель паролей")
       self.resize(1280, 720)
 
       central_widget = QWidget()
@@ -33,12 +20,12 @@ class MyWindow(QMainWindow):
       layout = QVBoxLayout(central_widget)
 
       # CSS
-      self.setStyleSheet("background-color: #806087")
+      self.setStyleSheet("background-color: #14e0f2")
 
       self.stacked_image = QStackedWidget()
       layout.addWidget(self.stacked_image)
 
-      self.lbl = QLabel("Добро пожаловать, богач", self)
+      self.lbl = QLabel("Добро пожаловать", self)
       self.lbl_font = QFont()
       # self.lbl_font.setFamily("")
       self.lbl_font.setPointSize(15)
@@ -70,7 +57,7 @@ class MyWindow(QMainWindow):
       self.input2 = QLineEdit(self)
       self.input2.setFont(self.lbl_font)
 
-      self.button = QPushButton("Войти", self)
+      self.button = QPushButton("Записать", self)
       self.button.setFont(self.lbl_font)
       self.button.setStyleSheet("color: white")
       self.button.clicked.connect(self.login)
@@ -93,23 +80,16 @@ class MyWindow(QMainWindow):
 
       self.image_lable = QLabel(self.image_w)
       pixmap = QPixmap('common/123.jpeg')
+      self.image_lable.setPixmap(pixmap)
+
+      image_layout.addWidget(self.image_lable)
 
    def login(self):
       username = self.input1.text()
       password = self.input2.text()
 
-      if username != "123" or password != "123":
-         self.lbl_status.setText("Данные введены неверно")
-         self.lbl_status.setStyleSheet("color: red")
-         image = ImageView
-         print("Данные введены неверно")
-      else:
-         self.lbl_status.setText("Добро пожаловать")
-         self.lbl_status.setStyleSheet("color: green")
-
-         timer = QTimer(self)
-         timer.singleShot(3000, self.close_app)
-         print("Добро пожаловать")
+      self.lbl_status.setText("Данные записаны")
+      self.lbl_status.setStyleSheet("color: green")
 
    def close_app(self):
       self.close()
